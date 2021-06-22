@@ -55,7 +55,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Wconvers
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
 
 set(TESTS
-    ${TEST_DIR}/test.cpp
+    ${TEST_DIR}/test_example.cpp
 )
 
 add_executable(${PROJECT_NAME}-ut ${TESTS})
