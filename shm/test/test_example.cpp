@@ -23,7 +23,7 @@ constexpr size_t SHIP_CREW = 5;
 Ship ship(SHIP_ID, SHIP_NAME, SHIP_SPEED, SHIP_MAX_CREW, SHIP_CAPACITY);
 TEST(ShipTest, ShouldInitShip) {
     EXPECT_EQ(ship.getId(), SHIP_ID);
-    EXPECT_EQ(ship.getMaxCrew(), SHIP_MAX_CREW);        // next test not recommended here
+    EXPECT_EQ(ship.getMaxCrew(), SHIP_MAX_CREW);         // next test not recommended here
     EXPECT_EQ(ship.getSpeed(), SHIP_SPEED);
     EXPECT_EQ(ship.getCapacity(), SHIP_CAPACITY);
 }
@@ -37,7 +37,7 @@ TEST(ShipTest, ShouldSubtractCrew) {
 }
 TEST(ShipTest, ShouldNotAddCrew) {
     ship += SHIP_MAX_CREW + 1;
-    // EXPECT_EQ(ship.getCrew(), 0);                    // no getCre() method in a class
+    // EXPECT_EQ(ship.getCrew(), 0);                     // no getCre() method in a class
 }
 TEST(ShipTest, ShouldSetName) {
     // when
