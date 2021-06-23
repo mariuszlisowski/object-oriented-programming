@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <memory>
 #include <string>
 #include <vector>
@@ -20,6 +21,7 @@ public:
     size_t getSpeed() const { return speed_; };
     size_t getMaxCrew() const { return maxCrew_; };
     size_t getCapacity() const { return capacity_; };
+    size_t getCrew() const { return crew_; };
     std::shared_ptr<Cargo> getCargo(size_t index) const;
     std::vector<std::shared_ptr<Cargo>> getVectorCargo() const { return cargo_; };
 
@@ -34,6 +36,3 @@ private:
     const size_t capacity_ { 80 };
     std::vector<std::shared_ptr<Cargo>> cargo_;
 };
-
-
-
