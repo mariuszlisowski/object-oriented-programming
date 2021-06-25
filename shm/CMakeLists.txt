@@ -55,6 +55,7 @@ target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}-lib)
 
 set(TESTS
     ${TEST_DIR}/ship-ut.cpp
+    ${TEST_DIR}/map-ut.cpp
 )
 
 add_executable(${PROJECT_NAME}-ut ${TESTS})
