@@ -39,6 +39,6 @@ Island* Map::getIsland(const Island::Coordinates& coordinates) {
                                      return island.getCoordinates() == coordinates;
                                  });
     return island_it != vectorOfIslands_.end()
-           ? std::addressof(*island_it)
+           ? &*island_it
            : nullptr;
 }
