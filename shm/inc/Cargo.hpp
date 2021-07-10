@@ -16,7 +16,7 @@ public:
     size_t getBasePrice() const { return basePrice_; }
 
 private:
-    const std::string name_; 
+    std::string name_; 
     size_t amount_ {};
     size_t basePrice_ {}; 
 };
