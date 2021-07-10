@@ -3,6 +3,10 @@
 
 #include <stdexcept>
 
+namespace {
+    constexpr size_t MAX_AMOUNT_OF_CARGO{ 1000 };
+}
+
 Cargo::Cargo(const std::string& name, size_t amount, size_t basePrice) 
     : name_(name)
     , amount_(amount)
