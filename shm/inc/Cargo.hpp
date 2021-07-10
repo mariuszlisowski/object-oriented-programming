@@ -5,7 +5,6 @@
 //class resposible for manage commodity in game
 class Cargo {
 public:
-    //constructs an object of cargo in game
     Cargo(const std::string& name, size_t amount, size_t basePrice);
 
     Cargo& operator+=(const size_t amount);
