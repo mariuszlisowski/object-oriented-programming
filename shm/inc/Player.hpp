@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shm/inc/Ship.hpp" // forward declaration not enough
+#include "shm/inc/Ship.hpp"
 
 class Cargo;
 
