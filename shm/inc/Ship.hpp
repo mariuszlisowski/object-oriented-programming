@@ -17,7 +17,7 @@ public:
     Ship& operator-=(const size_t crew);
 
     int getId() const { return id_; };
-    std::string getName() const { return name_; };
+    const std::string& getName() const { return name_; };
     size_t getSpeed() const { return speed_; };
     size_t getMaxCrew() const { return maxCrew_; };
     size_t getCapacity() const { return capacity_; };

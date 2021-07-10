@@ -11,7 +11,7 @@ public:
     Cargo& operator-=(const size_t amount);
     bool operator==(const Cargo&) const;
 
-    std::string getName() const { return name_; }
+    const std::string& getName() const { return name_; }
     size_t getAmount() const { return amount_; }
     size_t getBasePrice() const { return basePrice_; }
 
