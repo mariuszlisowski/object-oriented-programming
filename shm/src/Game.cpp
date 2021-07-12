@@ -259,7 +259,7 @@ void Game::sell() {
     auto currentStore{ player_->getCurrentPosition()->getStore() };
     do {
         setUserCargo(cargoName, cargoAmount);
-        Cargo* cargo{ player_->getCargo(cargoName) };
+        std::shared_ptr<Cargo> cargo { player_->getCargo(cargoName) };
         if (cargo) {
             response = currentStore->sell(cargo, cargoAmount, player_.get());
             break;

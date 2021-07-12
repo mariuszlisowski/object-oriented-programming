@@ -49,15 +49,21 @@ Store::Response Store::buy(std::shared_ptr<Cargo> cargo, size_t amount, Player* 
     if (it != end(cargo_)) {
         (*it)->setAmount((*it)->getAmount() - amount);
     }
+    // TO DO (DELETE CARGO FROM VECTOR - UNLOAD)
     return Response::done;   
 }
 
-Store::Response Store::sell(Cargo* cargo, size_t amount, Player* player) {
+Store::Response Store::sell(std::shared_ptr<Cargo> cargo, size_t amount, Player* player) {
     if (!cargo) {
         return Response::lack_of_cargo;
     }
     if (cargo->getAmount() + amount > STORE_CAPACITY) {
         return Response::lack_of_space;
+    }
+    player->sell(cargo, amount, cargo->getPrice());
+    auto it = std::find(begin(cargo_), end(cargo_), cargo);
+    if (it != end(cargo_)) {
+        (*it)->setAmount((*it)->getAmount() + amount);
     }
     return Response::done;
 }
