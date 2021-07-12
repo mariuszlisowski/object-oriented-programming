@@ -62,33 +62,26 @@ void Ship::load(const std::shared_ptr<Cargo> cargo) {
     if (cargo) {
         auto cargo_it{ std::find(cargos_.begin(), cargos_.end(), cargo) };
         if (cargo_it != cargos_.end()) {
-            **cargo_it += cargo->getAmount();             // TODO: catch throw
+            **cargo_it += cargo->getAmount();               // TODO: catch throw
         } else {
             cargos_.emplace_back(cargo);
         }
-    }
+    }                                                       // TODO: else
 }
 
-// FIXME:
 void Ship::unload(Cargo* cargo) {
-    if (cargo) {
-        int it = -1;
-        for (int i = 0; i < static_cast<int>(cargos_.size()); i++) {
-            if (*(cargos_[i].get()) == *cargo) {
-                it = i;
-                break;
-            }
-        }
-        if (it == -1) {
-            std::cerr << "Cargo not exist in ship\n";
-        } else if (cargo->getAmount() > cargo[it].getAmount()) {
-            std::cerr << "Wrong value, you wanna unload more then exist in ship\n";
-        } else if (cargo->getAmount() == cargo[it].getAmount()) {
-            cargos_.erase(std::remove(cargos_.begin(), cargos_.end(), cargos_[it]), cargos_.end());
+    auto cargo_it = std::find_if(cargos_.begin(), cargos_.end(),
+                                 [&cargo](const auto& el) {
+                                     return el->getName() == cargo->getName();
+                                 });
+    if (cargo_it != cargos_.end()) {
+        size_t currentAmount = (*cargo_it)->getAmount(); 
+        if (cargo->getAmount() >= currentAmount ) {
+            cargos_.erase(cargo_it); 
         } else {
-            *cargos_[it]-= cargo->getAmount();
+            **cargo_it -= cargo->getAmount();
         }
-    }
+    }                                                       // TODO: else
 }
 
 void Ship::nextDay() {
