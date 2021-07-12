@@ -239,7 +239,7 @@ void Game::buy() {
     auto currentStore{ player_->getCurrentPosition()->getStore() };
     do {
         setUserCargo(cargoName, cargoAmount);
-        Cargo* cargo{ currentStore->getCargo(cargoName) };
+        auto cargo{ currentStore->getCargo(cargoName) };
         if (cargo) {
             response = currentStore->buy(cargo, cargoAmount, player_.get());
             break;

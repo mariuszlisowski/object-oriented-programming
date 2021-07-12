@@ -25,9 +25,9 @@ public:
 
     friend std::ostream& operator<<(std::ostream& out, const Store& store);
 
-    Response buy(Cargo* cargo, size_t amount, Player* player);
+    Response buy(std::shared_ptr<Cargo> cargo, size_t amount, Player* player);
     Response sell(Cargo* cargo, size_t amount, Player* player);
-    Cargo* getCargo(const std::string& name) const;
+    std::shared_ptr<Cargo> getCargo(const std::string& name) const;
 
     // override from Subscriber
     void nextDay() override;
@@ -43,7 +43,7 @@ private:
     void generateAlcohol();
     void generateItem();
     void generateDryFruits();
-    std::vector<std::unique_ptr<Cargo>> cargo_;
+    std::vector<std::shared_ptr<Cargo>> cargo_;
 
     struct SplitLineFromFile {
         std::string className_{};

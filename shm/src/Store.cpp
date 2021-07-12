@@ -31,7 +31,7 @@ std::ostream& operator<<(std::ostream& out, const Store& store){
     return out;
 }
 
-Store::Response Store::buy(Cargo* cargo, size_t amount, Player* player) {
+Store::Response Store::buy(std::shared_ptr<Cargo> cargo, size_t amount, Player* player) {
     if (!cargo) {
         return Response::lack_of_cargo;
     }
@@ -43,6 +43,11 @@ Store::Response Store::buy(Cargo* cargo, size_t amount, Player* player) {
     }
     if (player->getAvailableSpace() < amount) {
         return Response::lack_of_space;
+    }
+    player->buy(cargo, amount, cargo->getPrice());
+    auto it = std::find(begin(cargo_), end(cargo_), cargo);
+    if (it != end(cargo_)) {
+        (*it)->setAmount((*it)->getAmount() - amount);
     }
     return Response::done;   
 }
@@ -57,14 +62,14 @@ Store::Response Store::sell(Cargo* cargo, size_t amount, Player* player) {
     return Response::done;
 }
 
-Cargo* Store::getCargo(const std::string& name) const {
+std::shared_ptr<Cargo> Store::getCargo(const std::string& name) const {
     auto result{ std::find_if(cargo_.begin(), cargo_.end(),
                              [&name](const auto& cargo) {
                                 return cargo->getName() == name ;
                              })
     };
     
-    return result != cargo_.end() ? result->get() : nullptr;
+    return result != cargo_.end() ? *result : nullptr;
 }
 
 void Store::nextDay() {
