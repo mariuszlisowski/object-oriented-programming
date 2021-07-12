@@ -4,6 +4,7 @@
 #include "shm/inc/Player.hpp"
 
 #include <algorithm>
+#include <exception>
 #include <iostream>
 #include <stdexcept>
 
@@ -57,18 +58,13 @@ Cargo* Ship::getCargo(const std::string& name) const {
     return result != cargos_.end() ? result->get() : nullptr;
 }
 
-void Ship::load(const std::shared_ptr<Cargo>cargo) {
+void Ship::load(const std::shared_ptr<Cargo> cargo) {
     if (cargo) {
-        bool ifExistCargo = false;
-        for (auto const & element : cargos_) {
-            if (element == cargo) {
-                *element+=cargo->getAmount();
-                ifExistCargo = true;
-                break;
-            }
-        }
-        if (ifExistCargo == false) {
-            cargos_.push_back(cargo);
+        auto cargo_it{ std::find(cargos_.begin(), cargos_.end(), cargo) };
+        if (cargo_it != cargos_.end()) {
+            **cargo_it += cargo->getAmount();             // TODO: catch throw
+        } else {
+            cargos_.emplace_back(cargo);
         }
     }
 }
