@@ -59,21 +59,19 @@ Cargo* Ship::getCargo(const std::string& name) const {
 }
 
 void Ship::load(const std::shared_ptr<Cargo> cargo) {
-    if (cargo) {
-        auto cargo_it{ std::find(cargos_.begin(), cargos_.end(), cargo) };
-        if (cargo_it != cargos_.end()) {
-            **cargo_it += cargo->getAmount();               // TODO: catch throw
-        } else {
-            cargos_.emplace_back(cargo);
-        }
-    }                                                       // TODO: else
+    auto cargo_it{ std::find(cargos_.begin(), cargos_.end(), cargo) };
+    if (cargo_it != cargos_.end()) {
+        **cargo_it += cargo->getAmount();
+    } else {
+        cargos_.emplace_back(cargo);
+    }
 }
 
 void Ship::unload(Cargo* cargo) {
-    auto cargo_it = std::find_if(cargos_.begin(), cargos_.end(),
+    auto cargo_it{ std::find_if(cargos_.begin(), cargos_.end(),
                                  [&cargo](const auto& el) {
                                      return el->getName() == cargo->getName();
-                                 });
+                                 }) };
     if (cargo_it != cargos_.end()) {
         size_t currentAmount = (*cargo_it)->getAmount(); 
         if (cargo->getAmount() >= currentAmount ) {
@@ -81,7 +79,7 @@ void Ship::unload(Cargo* cargo) {
         } else {
             **cargo_it -= cargo->getAmount();
         }
-    }                                                       // TODO: else
+    }
 }
 
 void Ship::nextDay() {
